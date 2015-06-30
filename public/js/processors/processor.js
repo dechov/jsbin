@@ -351,6 +351,28 @@ var processors = jsbin.processors = (function () {
       }
     }),
 
+    vega: createProcessor({
+      id: 'vega',
+      target: 'js',
+      extensions: ['json'],
+      init: passthrough,
+      handler: function vega(source, resolve, reject) {
+        try {
+          resolve([
+            '(function(){',
+            '  vg.parse.spec(' + source + ', function(chart) {',
+            '    var container = document.createElement("div");',
+            '    (document.body || document.documentElement).appendChild(container);',
+            '    window.view = chart({el: container}).update()',
+            '  });',
+            '})();'
+          ].join('\n'));
+        } catch (e) {
+          reject(e);
+        }
+      }
+    }),
+
     jade: createProcessor({
       id: 'jade',
       target: 'html',
@@ -508,6 +530,7 @@ var processors = jsbin.processors = (function () {
         ready();
       },
       handler: function babelhandle(source, resolve, reject) {
+        console.log("Babel handle")
         try {
           resolve(babel.transform(source, { stage: 0 }).code);
         } catch (e) {

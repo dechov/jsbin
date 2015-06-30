@@ -32,12 +32,12 @@
     gutter: false
   };
   var currentSettings = {
-    panels: [],
+    panels: ['javascript'],
     includejs: true,
-    focusedPanel: 'html',
+    focusedPanel: 'javascript',
     assetUrl: '',
     hintShow: hintShow,
-    jshint: true,
+    jshint: false,
     jshintOptions: '',
     csshint: false,
     csshintOptions: '',
